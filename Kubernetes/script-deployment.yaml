@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: script-app-deployment
+spec:
+    template:
+        metadata:
+            name: script-app
+            labels:
+                app: script-app
+            spec:
+                containers:
+                    - name: script-app-container
+                      image: imgApp/script-app:1.0
+                      env: 
+                      - name: TWORPTEST
+                        valueFrom:
+                          secretKeyRef:
+                            name: script-app-secret
+                            key: TWORPTEST
+    replicas: 1
+    selector:
+        matchLabels:
+            app: script-app
